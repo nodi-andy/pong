@@ -6,8 +6,18 @@ Simplest vanilla javascript canvas template
 
 # topics
 - body of html object
-- canvas element type
+- canvas as html element
 - style of html elements
 - id of html items
-- javascript basics
+- javascript in html
 - grab html objects in javascript
+- create variable
+- create object
+- change object variables
+- assign events to functions
+- start and keep rendering
+- draw the scene
+- move the ball
+- move the racket
+- hit the ball
+- game over
