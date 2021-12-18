@@ -1,0 +1,45 @@
+<body style="margin: 0; ">
+    <canvas id="myCanvasID" style="position:absolute;height:100%; width:100%;"></canvas>
+</body>
+    
+<script>
+    var myCanvas = document.getElementById("myCanvasID");
+    myCanvas.width  = innerWidth;
+    myCanvas.height = innerHeight;
+    
+    var context 	= myCanvas.getContext("2d");
+    var ball 		= {x:100	, y: 100	, vx: 1		, vy: -5}
+    var racket 		= {pos: 200	, len: 50	, dir: 0};
+    var gameOver 	= 0;
+    
+    document.addEventListener('keydown', e => {
+      if(e.code == "ArrowLeft") 	racket.dir = -5;
+      if(e.code == "ArrowRight") 	racket.dir = 5;
+    });
+    
+    document.addEventListener('keyup', e => {racket.dir = 0;});
+    
+    render();
+    
+    function render(){ 
+        context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+        context.beginPath();
+        context.arc(ball.x, ball.y, 5, 0, Math.PI * 2);
+        context.moveTo(racket.pos - racket.len, 400);
+        context.lineTo(racket.pos + racket.len, 400);
+        context.stroke();
+    
+        racket.pos += racket.dir;
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+    
+        if (ball.x < 0 || ball.x > myCanvas.width	) ball.vx = -ball.vx;
+        if (ball.y < 0 || ball.y > 400				) ball.vy = -ball.vy;
+        
+        if (ball.y > 400) {
+            if (ball.x < racket.pos - racket.len || ball.x > racket.pos + racket.len) gameOver = 1;
+            else ball.vx = ball.vx + (ball.x - racket.pos) * 0.1;
+        }
+        if (gameOver == 0) setTimeout(render, 15);
+    }
+    </script>
