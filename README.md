@@ -1,7 +1,7 @@
 # pong
 Simplest vanilla javascript canvas template
 
-Play the game here: ./pong.html
+[Play the game here:](./pong.html)
 
 
 # topics
