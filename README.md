@@ -1,7 +1,7 @@
 # pong
 Simplest vanilla javascript canvas template
 
-[Play the game here](https://htmlpreview.github.io/?https://github.com/nodi-andy/pong/blob/main/pong.html)
+Play the game here using github.io: [https://htmlpreview.github.io/?https://github.com/nodi-andy/pong/blob/main/pong.html](https://htmlpreview.github.io/?https://github.com/nodi-andy/pong/blob/main/pong.html)
 
 
 # topics
