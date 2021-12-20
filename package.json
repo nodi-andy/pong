@@ -1,0 +1,29 @@
+{
+  "name": "pong",
+  "version": "0.1.0",
+  "description": "js pong game",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^16.0.5"
+  },
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodi-andy/pong.git"
+  },
+  "keywords": [
+    "js",
+    "vanilla",
+    "pong"
+  ],
+  "author": "andy-nodi",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nodi-andy/pong/issues"
+  },
+  "homepage": "https://github.com/nodi-andy/pong#readme"
+}

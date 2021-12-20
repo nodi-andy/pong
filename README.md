@@ -3,9 +3,15 @@ Simplest vanilla javascript canvas template
 
 Play the game here using github.io: [https://htmlpreview.github.io/?https://github.com/nodi-andy/pong/blob/main/pong.html](https://htmlpreview.github.io/?https://github.com/nodi-andy/pong/blob/main/pong.html)
 
+# install node.js
+
+https://nodejs.org/en/download/
+
+# compile exe
+
+electron-packager ./ pong --platform=win32 --arch=x64
 
 # topics
-- body of html object
 - canvas as html element
 - style of html elements
 - id of html items
