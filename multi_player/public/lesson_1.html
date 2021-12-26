@@ -1,0 +1,36 @@
+<canvas id="myCanvas" style="border-style:solid; height:800px; width:600px;"></canvas>
+<script>
+    const ws        = new WebSocket('ws://192.168.1.35:3000');
+    let ball 		= {x:   100	, y:    100	, vx:   1		, vy: 5};
+    let racket 		= {x: 200, y: 700, len:  50	, dir:  0};
+    let racket2		= {x: 200, y: 100, len:  50	, dir:  0};
+    let seats       = {p1: 0, p2: 0};
+
+    ws.onmessage = function(e) {
+        let socketMsg = JSON.parse(e.data);
+        if(socketMsg.msg == "seats") seats = socketMsg.data;
+        if(socketMsg.msg == "ball") ball = socketMsg.data;
+        if(socketMsg.msg == "racket") racket = socketMsg.data;
+        if(socketMsg.msg == "racket2") racket2 = socketMsg.data;
+        if(socketMsg.msg == "id") console.log("Received: '" + socketMsg.data + "'");
+    };
+
+    let context = document.getElementById("myCanvas").getContext("2d");
+    context.canvas.width  = 600;
+    context.canvas.height = 800;
+
+    document.addEventListener("keydown", e => {ws.send(JSON.stringify({cmd: "keydown", data: e.code}));});
+    document.addEventListener("keyup", e => {ws.send(JSON.stringify({cmd: "keyup", data: e.code}))});
+    render();
+    function render(){ 
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        context.beginPath();
+        context.arc(ball.x, ball.y, 5, 0, Math.PI * 2);
+        context.moveTo(racket.x - racket.len, racket.y);
+        context.lineTo(racket.x + racket.len, racket.y);
+        context.moveTo(racket2.x - racket2.len, racket2.y);
+        context.lineTo(racket2.x + racket2.len, racket2.y);
+        context.stroke();
+        setTimeout(render, 15);
+    }
+</script>

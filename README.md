@@ -24,6 +24,9 @@ Play the game here using [github.io](https://htmlpreview.github.io/?https://gith
 
 https://nodejs.org/en/download/
 
+chrome://flags/#allow-insecure-localhost
+
+
 # compile exe
 
 electron-packager ./ pong --platform=win32 --arch=x64
