@@ -1,0 +1,17 @@
+<canvas id="myCanvas" style="border-style:solid; height:800px; width:600px;"></canvas>
+<script>
+    let context = document.getElementById("myCanvas").getContext("2d");
+    context.canvas.width  = 600;
+    context.canvas.height = 800;
+    let ball 		= {x:   100	, y:    200	, vx:   1		, vy: -5};
+    render();
+    function render(){ 
+        ball.x      = ball.x + ball.vx;
+        ball.y      = ball.y + ball.vy;
+        setTimeout(render, 15);
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        context.beginPath();
+        context.arc(ball.x, ball.y, 5, 0, Math.PI * 2);
+        context.stroke();
+    }
+</script>

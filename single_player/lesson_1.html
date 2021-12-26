@@ -1,0 +1,9 @@
+<canvas id="myCanvas" style="border-style:solid; height:800px; width:600px;"></canvas>
+
+<script>
+    const context = document.getElementById("myCanvas").getContext("2d");
+    context.canvas.width  = 600;
+    context.canvas.height = 800;
+    context.arc(200, 400, 15, 0, Math.PI * 2);
+    context.stroke();
+</script>
