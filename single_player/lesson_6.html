@@ -3,38 +3,37 @@
     let context = document.getElementById("myCanvas").getContext("2d");
     context.canvas.width  = 600;
     context.canvas.height = 800;
-    let ball 		= {x:   100	, y:    200	, vx:   1		, vy: -5};
-    let racket 		= {x:   200	, y:    700, len:  50	, dir:  0};
-    let point       = 0;
+    let ball 		= {x:   100	, y:    200	, vx:   1	, vy: -5};
+    let player 		= {x:   200	, y:    700, len:  50	, dir:  0, point: 0};
     document.addEventListener("keydown", e => {
-      if(e.code == "ArrowLeft") 	racket.dir = -5;
-      if(e.code == "ArrowRight") 	racket.dir = 5;
+      if(e.code == "ArrowLeft") 	player.dir = -5;
+      if(e.code == "ArrowRight") 	player.dir = 5;
     });
-    document.addEventListener("keyup", e => {racket.dir = 0;});
+    document.addEventListener("keyup", e => {player.dir = 0;});
     render();
     function render(){ 
-        racket.x  = racket.x + racket.dir;
+        player.x  = player.x + player.dir;
         ball.x      = ball.x + ball.vx;
         ball.y      = ball.y + ball.vy;
         if (ball.x < 0 || ball.x > context.canvas.width	) ball.vx = -ball.vx;
-        if (ball.y < 0 || ball.y > racket.y			    ) ball.vy = -ball.vy;
-        if (ball.y > racket.y) {
-            if (ball.x < racket.x - racket.len || ball.x > racket.y + racket.len) {
+        if (ball.y < 0 || ball.y > player.y			    ) ball.vy = -ball.vy;
+        if (ball.y > player.y) {
+            if (ball.x < player.x - player.len || ball.x > player.y + player.len) {
                 ball = {x:   100	, y:    200	, vx:   1		, vy: -5};
-                point = 0;
+                player.point = 0;
             } else {
-                ball.vx = ball.vx + (ball.x - racket.x) * 0.1;
+                ball.vx = ball.vx + (ball.x - player.x) * 0.1;
                 ball.vy = ball.vy * 1.01;
-                point++;
+                player.point++;
             }
         }
         setTimeout(render, 15);
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         context.beginPath();
         context.arc(ball.x, ball.y, 5, 0, Math.PI * 2);
-        context.moveTo(racket.x - racket.len, 700);
-        context.lineTo(racket.x + racket.len, 700);
-        context.fillText(point, 10, 690);
+        context.moveTo(player.x - player.len, 700);
+        context.lineTo(player.x + player.len, 700);
+        context.fillText(player.point, 10, 690);
         context.stroke();
     }
 </script>

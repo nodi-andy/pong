@@ -4,16 +4,15 @@
     context.canvas.width  = 600;
     context.canvas.height = 800;
     let ball 		= {x:   100	, y:    200	, vx:   1		, vy: -5};
-    let racket 		= {pos: 200	, len:  50	, dir:  0};
-    let point       = 0;
+    let player 		= {pos: 200	, len:  50	, dir:  0};
     document.addEventListener("keydown", e => {
-      if(e.code == "ArrowLeft") 	racket.dir = -5;
-      if(e.code == "ArrowRight") 	racket.dir = 5;
+      if(e.code == "ArrowLeft") 	player.dir = -5;
+      if(e.code == "ArrowRight") 	player.dir = 5;
     });
-    document.addEventListener("keyup", e => {racket.dir = 0;});
+    document.addEventListener("keyup", e => {player.dir = 0;});
     render();
     function render(){ 
-        racket.pos  = racket.pos + racket.dir;
+        player.pos  = player.pos + player.dir;
         ball.x      = ball.x + ball.vx;
         ball.y      = ball.y + ball.vy;
         if (ball.x < 0 || ball.x > context.canvas.width	) ball.vx = -ball.vx;
@@ -22,8 +21,8 @@
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         context.beginPath();
         context.arc(ball.x, ball.y, 5, 0, Math.PI * 2);
-        context.moveTo(racket.pos - racket.len, 700);
-        context.lineTo(racket.pos + racket.len, 700);
+        context.moveTo(player.pos - player.len, 700);
+        context.lineTo(player.pos + player.len, 700);
         context.stroke();
     }
 </script>

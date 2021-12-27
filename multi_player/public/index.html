@@ -1,17 +1,21 @@
 <canvas id="myCanvas" style="border-style:solid; height:800px; width:600px;"></canvas>
 <script>
     const ws        = new WebSocket('ws://localhost');
-    let ball 		= {x:   100	, y:    100	, vx:   1		, vy: 5};
-    let racket 		= {x: 200, y: 700, len:  50	, dir:  0};
-    let racket2		= {x: 200, y: 100, len:  50	, dir:  0};
+    let ball 		= {x: 100, y: 100, vx:   1	, vy: 5};
+    let player1		= {x: 200, y: 700, len:  50	, dir:  0};
+    let player2		= {x: 200, y: 100, len:  50	, dir:  0};
     let seats       = {p1: 0, p2: 0};
 
     ws.onmessage = function(e) {
         let socketMsg = JSON.parse(e.data);
-        if(socketMsg.msg == "seats") seats = socketMsg.data;
-        if(socketMsg.msg == "ball") ball = socketMsg.data;
-        if(socketMsg.msg == "racket") racket = socketMsg.data;
-        if(socketMsg.msg == "racket2") racket2 = socketMsg.data;
+        if(socketMsg.msg == "update") {
+            ball = socketMsg.data.ball;
+            player1 = socketMsg.data.player1;
+            player2 = socketMsg.data.player2;
+        }
+
+        if(socketMsg.msg == "player1") player1 = socketMsg.data;
+        if(socketMsg.msg == "player2") player2 = socketMsg.data;
         if(socketMsg.msg == "id") console.log("Received: '" + socketMsg.data + "'");
     };
 
@@ -26,11 +30,13 @@
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         context.beginPath();
         context.arc(ball.x, ball.y, 5, 0, Math.PI * 2);
-        context.moveTo(racket.x - racket.len, racket.y);
-        context.lineTo(racket.x + racket.len, racket.y);
-        context.moveTo(racket2.x - racket2.len, racket2.y);
-        context.lineTo(racket2.x + racket2.len, racket2.y);
+        context.moveTo(player1.x - player1.len, player1.y);
+        context.lineTo(player1.x + player1.len, player1.y);
+        context.moveTo(player2.x - player2.len, player2.y);
+        context.lineTo(player2.x + player2.len, player2.y);
         context.stroke();
+        context.fillText(player1.point, 10, player1.y);
+        context.fillText(player2.point, 10, player2.y);
         setTimeout(render, 15);
     }
 </script>
