@@ -1,8 +1,11 @@
+const myArgs = process.argv.slice(2);
 const express = require('express');
 const app = express();
-app.use(express.static('public'));
 require('express-ws')(app);
-app.listen(80);
+const port = parseInt(myArgs[0]);
+if (port == undefined) port == 80;
+if (parseInt(myArgs[0]) == 80) app.use(express.static('public'));
+app.listen(port);
 
 const users = new Map();
 
