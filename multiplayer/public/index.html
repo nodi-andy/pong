@@ -1,0 +1,54 @@
+<canvas id="myCanvas" style="border-style:solid; height:600px; width:800px;"></canvas>
+<script>
+    const ws        = new WebSocket('ws://localhost');
+    let ball 		= {x: 100, y: 100, vx:   1	, vy: 5};
+    let player1		= {x: 200, y: 700, len:  50	, dir:  0};
+    let player2		= {x: 200, y: 100, len:  50	, dir:  0};
+    let seats       = {p1: 0, p2: 0};
+    let whichPlayer = "";
+
+    ws.onmessage = function(e) {
+        let socketMsg = JSON.parse(e.data);
+        if (socketMsg.msg == "update") {
+            ball = socketMsg.data.ball;
+            player1 = socketMsg.data.player1;
+            player2 = socketMsg.data.player2;
+        }
+        if (socketMsg.msg == "id") {
+            whichPlayer = socketMsg.data;
+            console.log(socketMsg.data);
+        }
+ 
+    };
+
+    let ctx = document.getElementById("myCanvas").getContext("2d");
+    ctx.canvas.width  = 800;
+    ctx.canvas.height = 600;
+
+    document.addEventListener("keydown", e => {ws.send(JSON.stringify({cmd: "keydown", data: e.code}));});
+    document.addEventListener("keyup", e => {ws.send(JSON.stringify({cmd: "keyup", data: e.code}))});
+    render();
+    function render(){ 
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.beginPath();
+        ctx.lineWidth = 1;
+        ctx.arc(ball.x, ball.y, 5, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        if (whichPlayer == "player1") ctx.lineWidth = 4; else ctx.lineWidth = 1;
+        ctx.moveTo(player1.x, player1.y - player1.len);
+        ctx.lineTo(player1.x, player1.y + player1.len);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        if (whichPlayer == "player2") ctx.lineWidth = 4; else ctx.lineWidth = 1;
+        ctx.moveTo(player2.x, player2.y - player2.len);
+        ctx.lineTo(player2.x, player2.y + player2.len);
+        ctx.stroke();
+        ctx.font = "30px Verdana";
+        ctx.fillText(player1.point, 350, 50);
+        ctx.fillText(player2.point, 450, 50);
+        setTimeout(render, 15);
+    }
+</script>
