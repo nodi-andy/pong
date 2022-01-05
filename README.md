@@ -4,7 +4,7 @@ Simplest vanilla javascript canvas template
 ![Screenshot](https://raw.githubusercontent.com/nodi-andy/pong/main/pong_screenshot.png)
 
 # single player
-Play the game here using [github.io](https://htmlpreview.github.io/?https://github.com/nodi-andy/pong/blob/main/single_player/lesson_6.html)
+Play the game here using [github.io](https://htmlpreview.github.io/?https://github.com/nodi-andy/pong/blob/main/singleplayer/lesson_6.html)
 
 - canvas as html element
 - style of html elements
